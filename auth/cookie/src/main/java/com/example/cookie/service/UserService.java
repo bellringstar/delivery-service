@@ -30,6 +30,7 @@ public class UserService {
                 cookie.setDomain("localhost"); //해당 도메인에서만 쿠키 가용가능
                 cookie.setPath("/");
                 cookie.setMaxAge(-1); //session과 동일
+                cookie.setHttpOnly(true); //http통신에서만 사용 가능
 
                 response.addCookie(cookie);
             }
