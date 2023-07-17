@@ -31,7 +31,7 @@ public class UserService {
                 cookie.setPath("/");
                 cookie.setMaxAge(-1); //session과 동일
                 cookie.setHttpOnly(true); //http통신에서만 사용 가능
-
+//                cookie.setSecure(true); //https에서만 사용 가능하게 설정
                 response.addCookie(cookie);
             }
         }else {
