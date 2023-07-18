@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.0.8'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+//자식 프로젝트는 나를 따르라.
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+//부모프로젝트는 소스코드를 가지지 않기 때문에 jar 파일 패키징을 막는다
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = false
+}
