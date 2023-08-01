@@ -21,23 +21,24 @@ public class UserOpenApiController {
 
     private final UserBusiness userBusiness;
 
-    // 사용자 가입 처리
 
+    // 사용자 가입 요청
     @PostMapping("/register")
     public Api<UserResponse> register(
-            @Valid
-            @RequestBody UserRegisterRequest request
+        @Valid
+        @RequestBody Api<UserRegisterRequest> request
     ){
-        var response = userBusiness.register(request);
+        var response = userBusiness.register(request.getBody());
         return Api.OK(response);
     }
 
+    // 로그인
     @PostMapping("/login")
     public Api<TokenResponse> login(
-            @Valid
-            @RequestBody UserLoginRequest request
+        @Valid
+        @RequestBody Api<UserLoginRequest> request
     ){
-        var response = userBusiness.login(request);
+        var response = userBusiness.login(request.getBody());
         return Api.OK(response);
     }
 

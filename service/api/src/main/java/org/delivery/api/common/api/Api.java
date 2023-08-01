@@ -18,7 +18,7 @@ public class Api<T> {
     private T body;
 
     public static <T> Api<T> OK(T data){
-        var api = new Api();
+        var api = new Api<T>();
         api.result = Result.OK();
         api.body = data;
         return api;
@@ -47,5 +47,4 @@ public class Api<T> {
         api.result = Result.ERROR(errorCodeIfs, description);
         return api;
     }
-
 }

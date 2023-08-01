@@ -20,7 +20,7 @@ public class StoreMenuApiController {
 
     @GetMapping("/search")
     public Api<List<StoreMenuResponse>> search(
-            @RequestParam Long storeId
+        @RequestParam Long storeId
     ){
         var response = storeMenuBusiness.search(storeId);
         return Api.OK(response);

@@ -22,8 +22,10 @@ public class UserApiController {
     private final UserBusiness userBusiness;
 
     @GetMapping("/me")
-    public Api<UserResponse> me(@UserSession User user){
-        var response = userBusiness.me(user.getId());
+    public Api<UserResponse> me(
+        @UserSession User user
+    ){
+        var response = userBusiness.me(user);
         return Api.OK(response);
     }
 }

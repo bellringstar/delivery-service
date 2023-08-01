@@ -21,8 +21,8 @@ public class StoreMenuOpenApiController {
 
     @PostMapping("/register")
     public Api<StoreMenuResponse> register(
-            @Valid
-            @RequestBody Api<StoreMenuRegisterRequest> request
+        @Valid
+        @RequestBody Api<StoreMenuRegisterRequest> request
     ){
         var req = request.getBody();
         var response = storeMenuBusiness.register(req);

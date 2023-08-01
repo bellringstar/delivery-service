@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-@RestController
 @RequiredArgsConstructor
+@RestController
 @RequestMapping("/open-api/store")
 public class StoreOpenApiController {
 
@@ -21,14 +21,10 @@ public class StoreOpenApiController {
 
     @PostMapping("/register")
     public Api<StoreResponse> register(
-            @Valid
-            @RequestBody StoreRegisterRequest request
-            )
-    {
-        var response = storeBusiness.register(request);
+        @Valid
+        @RequestBody Api<StoreRegisterRequest> request
+    ){
+        var response = storeBusiness.register(request.getBody());
         return Api.OK(response);
-
     }
-
-
 }

@@ -24,34 +24,34 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 
     private final TokenBusiness tokenBusiness;
 
-    //사전검증
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.info("Authorization Interceptor url : {}", request.getRequestURI());
 
-        // WEB, chrome의 경우 GET,POST 요청하기전 OPTION으로 요청해 해당 메서드를 지원하는지 체크하는데 이건 통과
+        // WEB ,chrome 의 경우 GET, POST OPTIONS = pass
         if(HttpMethod.OPTIONS.matches(request.getMethod())){
             return true;
         }
 
-        // js, html, png 등의 resource 요청 = 통과
+        // js. html. png resource 를 요청하는 경우 = pass
         if(handler instanceof ResourceHttpRequestHandler){
             return true;
         }
 
-        // TODO - header 검증 구현
         var accessToken = request.getHeader("authorization-token");
         if(accessToken == null){
             throw new ApiException(TokenErrorCode.AUTHORIZATION_TOKEN_NOT_FOUND);
         }
-        var userId = tokenBusiness.validationToken(accessToken);
 
-        if(userId != null) {
+        var userId = tokenBusiness.validationAccessToken(accessToken);
+
+        if(userId != null){
             var requestContext = Objects.requireNonNull(RequestContextHolder.getRequestAttributes());
             requestContext.setAttribute("userId", userId, RequestAttributes.SCOPE_REQUEST);
             return true;
         }
-        throw new ApiException(ErrorCode.BAD_REQUEST, "인증실패");
 
+
+        throw new ApiException(ErrorCode.BAD_REQUEST, "인증실패");
     }
 }

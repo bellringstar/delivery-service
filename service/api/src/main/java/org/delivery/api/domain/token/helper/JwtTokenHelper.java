@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
+import org.delivery.api.common.error.ErrorCode;
 import org.delivery.api.common.error.TokenErrorCode;
 import org.delivery.api.common.exception.ApiException;
 import org.delivery.api.domain.token.ifs.TokenHelperIfs;
@@ -35,23 +36,23 @@ public class JwtTokenHelper implements TokenHelperIfs {
         var expiredLocalDateTime = LocalDateTime.now().plusHours(accessTokenPlusHour);
 
         var expiredAt = Date.from(
-                expiredLocalDateTime.atZone(
-                        ZoneId.systemDefault()
-                ).toInstant()
+            expiredLocalDateTime.atZone(
+                ZoneId.systemDefault()
+            ).toInstant()
         );
 
         var key = Keys.hmacShaKeyFor(secretKey.getBytes());
 
         var jwtToken = Jwts.builder()
-                .signWith(key, SignatureAlgorithm.HS256)
-                .setClaims(data)
-                .setExpiration(expiredAt)
-                .compact();
+            .signWith(key, SignatureAlgorithm.HS256)
+            .setClaims(data)
+            .setExpiration(expiredAt)
+            .compact();
 
         return TokenDto.builder()
-                .token(jwtToken)
-                .expiredAt(expiredLocalDateTime)
-                .build();
+            .token(jwtToken)
+            .expiredAt(expiredLocalDateTime)
+            .build();
     }
 
     @Override
@@ -59,23 +60,23 @@ public class JwtTokenHelper implements TokenHelperIfs {
         var expiredLocalDateTime = LocalDateTime.now().plusHours(refreshTokenPlusHour);
 
         var expiredAt = Date.from(
-                expiredLocalDateTime.atZone(
-                        ZoneId.systemDefault()
-                ).toInstant()
+            expiredLocalDateTime.atZone(
+                ZoneId.systemDefault()
+            ).toInstant()
         );
 
         var key = Keys.hmacShaKeyFor(secretKey.getBytes());
 
         var jwtToken = Jwts.builder()
-                .signWith(key, SignatureAlgorithm.HS256)
-                .setClaims(data)
-                .setExpiration(expiredAt)
-                .compact();
+            .signWith(key, SignatureAlgorithm.HS256)
+            .setClaims(data)
+            .setExpiration(expiredAt)
+            .compact();
 
         return TokenDto.builder()
-                .token(jwtToken)
-                .expiredAt(expiredLocalDateTime)
-                .build();
+            .token(jwtToken)
+            .expiredAt(expiredLocalDateTime)
+            .build();
     }
 
     @Override
@@ -83,8 +84,8 @@ public class JwtTokenHelper implements TokenHelperIfs {
         var key = Keys.hmacShaKeyFor(secretKey.getBytes());
 
         var parser = Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build();
+            .setSigningKey(key)
+            .build();
 
         try{
             var result = parser.parseClaimsJws(token);

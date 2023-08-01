@@ -7,7 +7,6 @@ import org.delivery.api.domain.store.controller.model.StoreResponse;
 import org.delivery.api.domain.store.converter.StoreConverter;
 import org.delivery.api.domain.store.service.StoreService;
 import org.delivery.db.store.enums.StoreCategory;
-import org.delivery.db.store.enums.StoreStatus;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,24 +16,27 @@ import java.util.stream.Collectors;
 public class StoreBusiness {
 
     private final StoreService storeService;
-
     private final StoreConverter storeConverter;
 
     public StoreResponse register(
-            StoreRegisterRequest request
+        StoreRegisterRequest storeRegisterRequest
     ){
-        var entity = storeConverter.toEntity(request);
+        // req -> entity -> response
+        var entity = storeConverter.toEntity(storeRegisterRequest);
         var newEntity = storeService.register(entity);
         var response = storeConverter.toResponse(newEntity);
         return response;
     }
 
     public List<StoreResponse> searchCategory(
-            StoreCategory category
+        StoreCategory storeCategory
     ){
-        var storeList = storeService.searchByCategory(category);
+        // entity list -> response list
 
-        return storeList.stream().map(storeConverter::toResponse)
-                .collect(Collectors.toList());
+        var storeList = storeService.searchByCategory(storeCategory);
+
+        return storeList.stream()
+            .map(storeConverter::toResponse)
+            .collect(Collectors.toList());
     }
 }

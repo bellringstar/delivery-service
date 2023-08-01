@@ -17,11 +17,13 @@ import java.util.List;
 @RequestMapping("/api/store")
 public class StoreApiController {
 
+
     private final StoreBusiness storeBusiness;
 
     @GetMapping("/search")
-    private Api<List<StoreResponse>> search(
-            @RequestParam StoreCategory storeCategory
+    public Api<List<StoreResponse>> search(
+        @RequestParam(required = false)
+        StoreCategory storeCategory
     ){
         var response = storeBusiness.searchCategory(storeCategory);
         return Api.OK(response);

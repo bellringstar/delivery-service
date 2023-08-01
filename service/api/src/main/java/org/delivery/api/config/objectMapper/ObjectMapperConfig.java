@@ -1,4 +1,4 @@
-package org.delivery.api.config.objectMapper;
+package org.delivery.api.config.objectmapper;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,11 +16,11 @@ public class ObjectMapperConfig {
     public ObjectMapper objectMapper(){
         var objectMapper = new ObjectMapper();
 
-        objectMapper.registerModule(new Jdk8Module()); //jdk8버전 이후 클래스 파싱위해서
+        objectMapper.registerModule(new Jdk8Module());  // jdk 8 버전 이후 클래스
 
-        objectMapper.registerModule(new JavaTimeModule()); //local date 시리즈
+        objectMapper.registerModule(new JavaTimeModule());  // << local date
 
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); // 모르는 json field에 대해서는 무시한다.
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);   // 모르는 json field에 대해서는 무시 한다.
 
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
@@ -32,5 +32,4 @@ public class ObjectMapperConfig {
 
         return objectMapper;
     }
-
 }
